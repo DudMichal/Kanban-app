@@ -1,0 +1,46 @@
+<div class="root">
+    <div class="nabavr has-background-dark">
+        <div class="navbar-brand">
+            <div class="navbar-item">
+                <h1 class="app-name has-gradient-text">Kanban</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="board">
+
+        <div class="board-bar">
+            <p class="board-name">Board Name</p>
+        </div>
+
+        <div class="add-task-form">
+            <input [(ngModel)]="newTask" placeholder="Add new" />
+            <select [(ngModel)]="selectedColumn">
+                <option *ngFor="let column of board.columns" [value]="column.name">
+                    {{column.name}}
+                </option>
+            </select>
+            <button (click)="addTask()">Add</button>
+        </div>
+
+        <div class="board-wrapper">
+
+            <div class="board-columns" cdkDropListGroup>
+
+                <div class="board-column" *ngFor="let column of board.columns">
+
+                    <div class="column-title">
+                        {{column.name}}
+                    </div>
+
+                    <div class="task-container" cdkDropList [cdkDropListData]="column.tasks"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="task" *ngFor="let item of column.tasks" cdkDrag>
+                            {{item}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
